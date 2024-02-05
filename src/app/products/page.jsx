@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -11,9 +12,15 @@ async function page() {
   return (
     <>
       {products.map((product) => (
-        <Link href={`/products/${product.id}`}>
+        <Link href={`/products/${product.id}`} key={product.id}>
           <h1>{product.name}</h1>
           <p>{product.description}</p>
+          <Image
+            height={100}
+            width={100}
+            src={product.images[0].image}
+            alt={product.name}
+          />
           <hr />
         </Link>
       ))}
