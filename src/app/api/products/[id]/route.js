@@ -1,8 +1,9 @@
 import { products } from "@/data";
 import { NextResponse } from "next/server";
 
-export async function Get(req, res) {
-  console.log(req.body);
-  const product = products.find((product) => product.id === req.body.params);
+export async function GET(req, res) {
+  const { id } = res.params;
+
+  const product = products.find((product) => product.id === id);
   return NextResponse.json(product);
 }
