@@ -1,3 +1,9 @@
+import { BsShop } from "react-icons/bs";
+import { FaLaptop, FaDesktop } from "react-icons/fa";
+import { MdWatch, MdOutlinePhoneIphone } from "react-icons/md";
+import { PiTelevisionSimple } from "react-icons/pi";
+import { FaKeyboard } from "react-icons/fa6";
+
 export const products = [
   {
     id: "64a654593e91b8e73a351e9b",
@@ -176,4 +182,13 @@ export const products = [
     ],
     reviews: [],
   },
+];
+export const categories = [
+  { title: "All", icon: <BsShop /> },
+  { title: "Phone", icon: <MdOutlinePhoneIphone /> },
+  { title: "Laptop", icon: <FaLaptop /> },
+  { title: "Desktop", icon: <FaDesktop /> },
+  { title: "Watch", icon: <MdWatch /> },
+  { title: "TV", icon: <PiTelevisionSimple /> },
+  { title: "Accessories", icon: <FaKeyboard /> },
 ];
