@@ -49,7 +49,7 @@ export const products = [
         id: "64a65a6158b470c6e06959ee",
         userId: "6475af156bad4917456e6e1e",
         productId: "64a4ebe300900d44bb50628a",
-        rating: 5,
+        rating: 3,
         comment: "good",
         createdDate: "2023-07-06T06:08:33.067Z",
         user: {
@@ -99,7 +99,7 @@ export const products = [
         id: "6499b4887402b0efd394d8f3",
         userId: "6499b184b0e9a8c8709821d3",
         productId: "648437b38c44d52b9542e340",
-        rating: 4,
+        rating: 3,
         comment:
           "good enough. I like the camera and casing. the delivery was fast too.",
         createdDate: "2023-06-26T15:53:44.483Z",
@@ -120,7 +120,7 @@ export const products = [
         id: "6499a110efe4e4de451c7edc",
         userId: "6475af156bad4917456e6e1e",
         productId: "648437b38c44d52b9542e340",
-        rating: 5,
+        rating: 4,
         comment: "I really liked it!!",
         createdDate: "2023-06-26T14:30:40.998Z",
         user: {
