@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { BsStar, BsStarFill } from "react-icons/bs";
 
 function Product({ product }) {
@@ -20,7 +19,7 @@ function Product({ product }) {
   return (
     <>
       {product && (
-        <div className="flex flex-col justify-center items-center gap-1 p-2 w-60 text-center shadow">
+        <div className="bg-gray-50 flex flex-col justify-center items-center gap-1 p-2 min-w-60 text-center border shadow">
           <div className="w-full mb-5">
             <img
               src={product.images[0].image}

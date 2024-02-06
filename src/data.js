@@ -192,3 +192,10 @@ export const categories = [
   { title: "TV", icon: <PiTelevisionSimple /> },
   { title: "Accessories", icon: <FaKeyboard /> },
 ];
+export const customerServices = [
+  "Contact Us",
+  "Shipping Policy",
+  " Returns & Exchanges",
+  " Watches",
+  "FAQs",
+];

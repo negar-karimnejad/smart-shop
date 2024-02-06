@@ -1,8 +1,7 @@
-import { LuUser2 } from "react-icons/lu";
-import Categories from "./Categories";
-import { PiShoppingCart } from "react-icons/pi";
-import { MdArrowDropDown } from "react-icons/md";
 import Link from "next/link";
+import { LuUser2 } from "react-icons/lu";
+import { MdArrowDropDown } from "react-icons/md";
+import { PiShoppingCart } from "react-icons/pi";
 
 function Navbar() {
   return (
@@ -31,7 +30,7 @@ function Navbar() {
           <ul className="flex items-center gap-5 text-xl text-gray-800">
             <li className="relative">
               <PiShoppingCart className="text-2xl" />
-              <span className="absolute bottom-3.5 left-3 bg-gray-700 rounded-full flex items-center justify-center text-sm text-white w-5 h-5">
+              <span className="absolute bottom-4 pb-1 left-3 bg-gray-700 rounded-full flex items-center justify-center text-sm text-white w-5 h-5">
                 5
               </span>
             </li>
@@ -40,11 +39,6 @@ function Navbar() {
               <MdArrowDropDown />
             </li>
           </ul>
-        </div>
-      </div>
-      <div className="bg-white hidden md:block">
-        <div className="main-container py-3">
-          <Categories />
         </div>
       </div>
     </div>
