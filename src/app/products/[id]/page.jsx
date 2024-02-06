@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SingleProduct from "@/components/SingleProduct";
 
 const getProduct = async (id) => {
   // Fetch products based on the provided query parameters
@@ -8,22 +8,8 @@ const getProduct = async (id) => {
 
 async function page({ params }) {
   const product = await getProduct(params.id);
-  return (
-    <>
-      {product && (
-        <>
-          <h1>{product.name}</h1>
-          <p>{product.description}</p>
-          <Image
-            height={100}
-            width={100}
-            src={product.images[0].image}
-            alt={product.name}
-          />
-        </>
-      )}
-    </>
-  );
+
+  return <>{product && <SingleProduct />}</>;
 }
 
 export default page;

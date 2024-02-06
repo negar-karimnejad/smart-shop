@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { BsStar, BsStarFill } from "react-icons/bs";
 
 function Product({ product }) {
@@ -19,7 +20,10 @@ function Product({ product }) {
   return (
     <>
       {product && (
-        <div className="bg-gray-50 flex flex-col justify-center items-center gap-1 p-2 min-w-60 text-center border shadow">
+        <Link
+          href={`products/${product.id}`}
+          className="bg-gray-50 flex flex-col justify-center items-center gap-1 p-2 min-w-56 text-center border shadow transition-all hover:scale-105"
+        >
           <div className="w-full mb-5">
             <img
               src={product.images[0].image}
@@ -38,7 +42,7 @@ function Product({ product }) {
           </div>
           <div className="text-gray-600">{product.reviews?.length} reviews</div>
           <div className="font-bold">${product.price}</div>
-        </div>
+        </Link>
       )}
     </>
   );
