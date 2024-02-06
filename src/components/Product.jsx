@@ -1,5 +1,6 @@
 "use client";
 
+import { formatCurrency } from "@/utilities/formatCurrency";
 import Link from "next/link";
 import { BsStar, BsStarFill } from "react-icons/bs";
 
@@ -41,7 +42,7 @@ function Product({ product }) {
             ))}
           </div>
           <div className="text-gray-600">{product.reviews?.length} reviews</div>
-          <div className="font-bold">${product.price}</div>
+          <div className="font-bold">{formatCurrency(product.price)}</div>
         </Link>
       )}
     </>

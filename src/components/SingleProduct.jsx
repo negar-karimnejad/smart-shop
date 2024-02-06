@@ -1,5 +1,6 @@
 "use client";
 
+import { formatCurrency } from "@/utilities/formatCurrency";
 import Image from "next/image";
 import { useState } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
@@ -36,7 +37,7 @@ function SingleProduct({ product }) {
             </div>
           ))}
         </div>
-        <div className="">
+        <div>
           {product?.images.map((item, index) => {
             if (item.color === chosenColor) {
               return (
@@ -54,7 +55,9 @@ function SingleProduct({ product }) {
       </div>
       <div>
         <h1 className="text-2xl font-bold">{product?.name}</h1>
-        <p className="text-lg font-bold mt-1">${product?.price}</p>
+        <p className="text-lg font-bold mt-1">
+          {formatCurrency(product?.price)}
+        </p>
         <div className="flex gap-1">
           <div className="flex items-center text-yellow-500">
             {[...Array(averageRating)].map((_, index) => (
@@ -118,20 +121,35 @@ function SingleProduct({ product }) {
           </button>
         </div>
       </div>
-      <div>
-        <h1>Product Reviews</h1>
+      <div className="flex flex-col">
+        <h1 className="font-bold text-xl mb-5">Product Reviews</h1>
         {product.reviews.map((review) => (
           <div>
-            <Image
-              src={review.user.image}
-              width={20}
-              height={20}
-              alt={review.user.name}
-            />
-            <p>{review.user.name}</p>
-            <p>{new Date() - review.user.createdAt}days ago</p>
-            {/* rating */}
-            <p className="text-sm text-gray-500">{review.comment}</p>
+            <div className="flex items-center gap-2">
+              <Image
+                src={review.user.image}
+                width={25}
+                height={25}
+                alt={review.user.name}
+                className="rounded-full"
+              />
+              <p className="font-semibold text-sm">{review.user.name}</p>
+              <p className="text-sm text-gray-500">
+                {new Date(review.user.createdAt).getDate() -
+                  new Date().getDate()}{" "}
+                days ago
+              </p>
+            </div>
+            <div className="flex items-center text-yellow-500 my-2">
+              {[...Array(review.rating)].map((_, index) => (
+                <BsStarFill key={index} className="mr-1" />
+              ))}
+              {[...Array(5 - review.rating)].map((_, index) => (
+                <BsStar key={index} className="mr-1" />
+              ))}
+            </div>
+            <p className="text-sm text-gray-500 max-w-56">{review.comment}</p>
+            <div className="border-b-2 w-56 my-3"></div>
           </div>
         ))}
       </div>
