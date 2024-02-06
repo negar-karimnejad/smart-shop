@@ -10,7 +10,7 @@ async function page({ params }) {
   const product = await getProduct(params.id);
 
   return (
-    <div className="main-container mt-5 grid lg:grid-cols-2 grid-cols-1 gap-10 xl:gap-0">
+    <div className="main-container mt-5 grid md:grid-cols-2 grid-cols-1 gap-10 xl:gap-0">
       <SingleProduct product={product} />
     </div>
   );

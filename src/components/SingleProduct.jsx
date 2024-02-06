@@ -23,8 +23,8 @@ function SingleProduct({ product }) {
 
   return (
     <>
-      <div className="flex items-center gap-20">
-        <div className="flex flex-col justify-center items-center gap-3 border p-5">
+      <div className="flex lg:flex-row flex-col-reverse max-md:flex-row max-md:gap-20 lg:gap-20 gap-0 justify-center items-center">
+        <div className="flex lg:flex-col max-md:flex-col justify-center items-center gap-3 border p-5">
           {product?.images.map((item, index) => (
             <div
               key={index}
