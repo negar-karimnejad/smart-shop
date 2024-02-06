@@ -1,8 +1,8 @@
 import { BsShop } from "react-icons/bs";
-import { FaLaptop, FaDesktop } from "react-icons/fa";
-import { MdWatch, MdOutlinePhoneIphone } from "react-icons/md";
-import { PiTelevisionSimple } from "react-icons/pi";
+import { FaDesktop, FaLaptop } from "react-icons/fa";
 import { FaKeyboard } from "react-icons/fa6";
+import { MdOutlinePhoneIphone, MdWatch } from "react-icons/md";
+import { PiTelevisionSimple } from "react-icons/pi";
 
 export const products = [
   {

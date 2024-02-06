@@ -1,16 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
 
 function SingleProduct({ product }) {
+  const [chosenColor, setChosenColor] = useState(product?.images[0].color);
+
   const calculateAverageRating = () => {
-    if (product.reviews && product.reviews.length > 0) {
-      const totalRating = product.reviews.reduce(
-        (sum, review) => sum + review.rating,
+    if (product?.reviews && product?.reviews?.length > 0) {
+      const totalRating = product?.reviews.reduce(
+        (sum, review) => sum + review?.rating,
         0
       );
-      return Math.floor(totalRating / product.reviews.length);
+      return Math.floor(totalRating / product?.reviews?.length);
     }
     return 0; // Default to 0 if there are no reviews
   };
@@ -18,33 +21,40 @@ function SingleProduct({ product }) {
   const averageRating = calculateAverageRating();
 
   return (
-    <div className="main-container mt-5 grid md:grid-cols-2 grid-cols-1">
+    <>
       <div className="flex items-center gap-20">
         <div className="flex flex-col justify-center items-center gap-3 border p-5">
-          {product.images.map((item, index) => (
-            <div className="cursor-pointer">
-              <Image
-                key={index}
-                src={item.image}
-                alt={item.color}
-                width={60}
-                height={60}
-              />
+          {product?.images.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => setChosenColor(item.color)}
+              className={`${
+                chosenColor === item.color && "border-2 border-sky-500"
+              } cursor-pointer p-2`}
+            >
+              <Image src={item.image} alt={item.color} width={60} height={60} />
             </div>
           ))}
         </div>
         <div className="">
-          <Image
-            src={product.images[0].image}
-            alt={product.name}
-            width={300}
-            height={300}
-          />
+          {product?.images.map((item, index) => {
+            if (item.color === chosenColor) {
+              return (
+                <Image
+                  key={index}
+                  src={item.image}
+                  alt={product.name}
+                  width={300}
+                  height={300}
+                />
+              );
+            }
+          })}
         </div>
       </div>
       <div>
-        <h1 className="text-2xl font-bold">{product.name}</h1>
-        <p className="text-lg font-bold mt-1">${product.price}</p>
+        <h1 className="text-2xl font-bold">{product?.name}</h1>
+        <p className="text-lg font-bold mt-1">${product?.price}</p>
         <div className="flex gap-1">
           <div className="flex items-center text-yellow-500">
             {[...Array(averageRating)].map((_, index) => (
@@ -58,28 +68,36 @@ function SingleProduct({ product }) {
         </div>
         <div className="border-b-2 w-48 my-3"></div>
         <p className="mt-2 text-[11px] text-gray-600 text-justify">
-          {product.description}
+          {product?.description}
         </p>
         <div className="border-b-2 w-48 my-3"></div>
         <p>
           <b className="uppercase text-gray-700 text-sm">Category: </b>
-          <span className="text-gray-600">{product.category}</span>
+          <span className="text-gray-600">{product?.category}</span>
         </p>
         <p>
           <b className="uppercase text-gray-700 text-sm">Brand: </b>
-          <span className="text-gray-600">{product.brand}</span>
+          <span className="text-gray-600">{product?.brand}</span>
         </p>
-        {product.inStock && (
+        {product?.inStock && (
           <span className="text-sm text-blue-400">inStock</span>
         )}
         <div className="border-b-2 w-48 my-3"></div>
         <p className="flex items-center gap-2">
           <b className="uppercase text-gray-700 text-sm mr-3">Color:</b>
-          {product.images.map((image) => (
+          {product?.images.map((image) => (
             <div
-              style={{ backgroundColor: image.color }}
-              className="w-5 h-5 rounded-full cursor-pointer"
-            ></div>
+              key={image.colorCode}
+              className={`${
+                chosenColor === image.color && "border-2 border-sky-500"
+              } w-8 h-8 p-1 flex items-center justify-center rounded-full`}
+            >
+              <div
+                onClick={() => setChosenColor(image.color)}
+                style={{ backgroundColor: image.color }}
+                className="w-5 h-5 rounded-full cursor-pointer"
+              ></div>
+            </div>
           ))}
         </p>
         <div className="border-b-2 w-48 my-3"></div>
@@ -100,7 +118,24 @@ function SingleProduct({ product }) {
           </button>
         </div>
       </div>
-    </div>
+      <div>
+        <h1>Product Reviews</h1>
+        {product.reviews.map((review) => (
+          <div>
+            <Image
+              src={review.user.image}
+              width={20}
+              height={20}
+              alt={review.user.name}
+            />
+            <p>{review.user.name}</p>
+            <p>{new Date() - review.user.createdAt}days ago</p>
+            {/* rating */}
+            <p className="text-sm text-gray-500">{review.comment}</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 

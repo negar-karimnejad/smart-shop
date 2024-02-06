@@ -9,7 +9,11 @@ const getProduct = async (id) => {
 async function page({ params }) {
   const product = await getProduct(params.id);
 
-  return <>{product && <SingleProduct />}</>;
+  return (
+    <div className="main-container mt-5 grid md:grid-cols-2 grid-cols-1">
+      <SingleProduct product={product} />
+    </div>
+  );
 }
 
 export default page;
