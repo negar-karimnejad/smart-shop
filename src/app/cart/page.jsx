@@ -1,5 +1,5 @@
-import CartProduct from "@/components/CartProduct";
-import Container from "@/components/Container";
+import CartProduct from "@/components/share/CartProduct";
+import Container from "@/components/ui/Container";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
 

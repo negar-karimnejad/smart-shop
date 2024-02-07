@@ -2,7 +2,7 @@
 
 import { categories } from "@/data";
 import { useState } from "react";
-import Container from "./Container";
+import Container from "../ui/Container";
 
 function Categories() {
   const [isActive, setIsActive] = useState("All");

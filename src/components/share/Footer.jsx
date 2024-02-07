@@ -3,14 +3,13 @@ import Link from "next/link";
 import { BsYoutube } from "react-icons/bs";
 import { FaFacebook, FaTwitter } from "react-icons/fa";
 import { PiInstagramLogoFill } from "react-icons/pi";
-import Container from "./Container";
+import Container from "../ui/Container";
 
 function Footer() {
   return (
     <div className="bg-slate-700 py-10 mt-24">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 text-white">
-
           <div className="flex flex-col gap-2 ">
             <h1 className="font-bold">Shop Categories</h1>
             {categories.slice(1).map((category) => (
@@ -23,7 +22,7 @@ function Footer() {
               </Link>
             ))}
           </div>
-          
+
           <div className="flex flex-col gap-2">
             <h1 className="font-bold">Customer Services</h1>
             {customerServices.map((service, index) => (
@@ -60,7 +59,6 @@ function Footer() {
               <BsYoutube className="cursor-pointer text-gray-300 hover:text-white" />
             </div>
           </div>
-          
         </div>
       </Container>
     </div>

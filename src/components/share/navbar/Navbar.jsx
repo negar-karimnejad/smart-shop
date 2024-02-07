@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Categories from "../Categories";
-import Container from "../Container";
+import Container from "../../ui/Container";
 import NavSearch from "./NavSearch";
 import UserNav from "./UserNav";
 import UserNavLinks from "./UserNavLinks";

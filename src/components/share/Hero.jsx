@@ -1,6 +1,6 @@
 import Image from "next/image";
-import banner from "../../public/banner-image.png";
-import Container from "./Container";
+import banner from "../../../public/banner-image.png";
+import Container from "../ui/Container";
 
 function Hero() {
   return (
