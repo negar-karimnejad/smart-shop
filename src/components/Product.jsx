@@ -24,7 +24,7 @@ function Product({ product }) {
       {product && (
         <Link
           href={`products/${product.id}`}
-          className="bg-gray-50 flex flex-col items-center gap-1 p-3 text-center border shadow transition-all hover:scale-105"
+          className="bg-gray-50 flex flex-col items-center rounded-lg gap-1 p-3 text-center border shadow-sm transition-all hover:scale-105"
         >
           <div className="w-full mb-5">
             <img

@@ -7,7 +7,7 @@ import Container from "./Container";
 
 function Footer() {
   return (
-    <div className="bg-slate-700 py-10 mt-10">
+    <div className="bg-slate-700 py-10 mt-24">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 text-white">
           <div className="flex flex-col gap-2 ">
