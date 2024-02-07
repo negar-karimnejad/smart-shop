@@ -3,12 +3,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-@layer styles {
-    .main-container {
-      @apply w-[90%] max-w-[1400px] mx-auto;
-    }
-  }
-
-  

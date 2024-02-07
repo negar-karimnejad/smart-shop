@@ -1,9 +1,10 @@
 import { categories } from "@/data";
+import Container from "./Container";
 
 function Categories() {
   return (
-    <div className="bg-white hidden md:block shadow-sm">
-      <div className="main-container py-3">
+    <div className="bg-white py-3 hidden md:block shadow-sm">
+      <Container>
         <ul className="flex items-center justify-between">
           {categories.map((category) => (
             <li
@@ -15,7 +16,7 @@ function Categories() {
             </li>
           ))}
         </ul>
-      </div>
+      </Container>
     </div>
   );
 }

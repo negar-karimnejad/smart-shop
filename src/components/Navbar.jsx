@@ -2,12 +2,13 @@ import Link from "next/link";
 import { LuUser2 } from "react-icons/lu";
 import { MdArrowDropDown } from "react-icons/md";
 import { PiShoppingCart } from "react-icons/pi";
+import Container from "./Container";
 
 function Navbar() {
   return (
-    <div className="sticky top-0 right-0 z-50 shadow-sm">
-      <div className="bg-slate-200">
-        <div className="main-container py-3 flex justify-between items-center">
+    <div className="bg-slate-200 sticky top-0 right-0 z-50 shadow-sm">
+      <Container>
+        <div className="py-3 flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold">
             <span className="bg-black text-white px-2 py-1">E</span>-Shop
           </Link>
@@ -29,10 +30,12 @@ function Navbar() {
           </form>
           <ul className="flex items-center gap-5 text-xl text-gray-800">
             <li className="relative">
-              <PiShoppingCart className="text-2xl" />
-              <span className="absolute bottom-4 pb-1 left-3 bg-gray-700 rounded-full flex items-center justify-center text-sm text-white w-5 h-5">
-                5
-              </span>
+              <Link href={"/cart"}>
+                <PiShoppingCart className="text-2xl" />
+                <span className="absolute bottom-4 pb-1 left-3 bg-gray-700 rounded-full flex items-center justify-center text-sm text-white w-5 h-5">
+                  5
+                </span>
+              </Link>
             </li>
             <li className="flex items-center border border-gray-400 px-2 py-1.5 rounded-full cursor-pointer">
               <LuUser2 />
@@ -40,7 +43,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
