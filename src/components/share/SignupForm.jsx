@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BsGithub } from "react-icons/bs";
-import { SignupUser } from "../../../lib/actions";
+import { signupUser } from "../../../lib/actions";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Input from "../ui/Input";
@@ -15,10 +15,9 @@ function SignupForm() {
   const ref = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  setIsSubmitting(true);
-
   const handleSubmit = async (formData) => {
-    const result = await SignupUser(formData);
+    setIsSubmitting(true);
+    const result = await signupUser(formData);
 
     if (result?.userExists) {
       toast.error(result?.userExists);
@@ -29,14 +28,15 @@ function SignupForm() {
       ref.current?.reset();
     }
   };
+
   return (
     <Container>
       <div className="my-8 shadow-lg rounded-lg p-7 max-w-xl mx-auto">
         <h1 className="font-bold text-2xl text-center">Sign up for E-Shop</h1>
         <Button
-          className="bg-white border-2 my-5 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600 hover:bg-white"
+          className="bg-white border-2 my-5 border-gray-600 font-semibold text-black flex justify-center items-center gap-2 hover:text-slate-600 hover:bg-white"
           disabled={isSubmitting}
-          onClick={() => signIn("github")}
+          //   onClick={() => signIn("github")}
         >
           <BsGithub size={24} />
           Sign up with Github
@@ -45,7 +45,7 @@ function SignupForm() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const formData = new formData(e.currentTarget);
+            const formData = new FormData(e.currentTarget);
             handleSubmit(formData);
           }}
           className="pt-5 flex flex-col gap-4 border-t"
@@ -55,20 +55,27 @@ function SignupForm() {
             name="name"
             placeholder="Name"
             disabled={isSubmitting}
+            className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
           <Input
             type="email"
             name="email"
             placeholder="Email"
             disabled={isSubmitting}
+            className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
           <Input
             type="password"
             name="password"
             placeholder="Password"
             disabled={isSubmitting}
+            className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
-          <Button type={"submit"} disabled={isSubmitting}>
+          <Button
+            type={"submit"}
+            disabled={isSubmitting}
+            className={`${isSubmitting && "opacity-50 cursor-default"}`}
+          >
             {isSubmitting ? "Signing Up..." : "Sign Up"}
           </Button>
         </form>
