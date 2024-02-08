@@ -19,8 +19,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.className} text-slate-700`}>
+        <HotToastContext />
         <div className="flex flex-col min-h-screen">
-          <HotToastContext />
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
