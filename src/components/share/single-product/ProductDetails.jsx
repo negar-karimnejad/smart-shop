@@ -22,14 +22,15 @@ function ProductDetails({ product, chosenColor, setChosenColor }) {
   const [loading, setLoading] = useState(false);
 
   const addToCart = async () => {
+    
     try {
       setLoading(true);
-      await fetch("http:localhost:3000/api/cart", {
+      await fetch("http://localhost:3000/api/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: { productId },
+        body: JSON.stringify({ productId }),
       });
       setLoading(false);
     } catch (error) {
