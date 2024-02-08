@@ -1,8 +1,11 @@
 import { categories, customerServices } from "@/data";
 import Link from "next/link";
-import { BsYoutube } from "react-icons/bs";
-import { FaFacebook, FaTwitter } from "react-icons/fa";
-import { PiInstagramLogoFill } from "react-icons/pi";
+import {
+  AiFillInstagram,
+  AiFillTwitterCircle,
+  AiFillYoutube,
+} from "react-icons/ai";
+import { MdFacebook } from "react-icons/md";
 import Container from "../ui/Container";
 
 function Footer() {
@@ -53,10 +56,22 @@ function Footer() {
           <div className="flex flex-col gap-2">
             <h1 className="font-bold">Follow Us</h1>
             <div className="flex items-center gap-3">
-              <FaFacebook className="cursor-pointer text-gray-300 hover:text-white" />
-              <FaTwitter className="cursor-pointer text-gray-300 hover:text-white" />
-              <PiInstagramLogoFill className="cursor-pointer text-gray-300 hover:text-white" />
-              <BsYoutube className="cursor-pointer text-gray-300 hover:text-white" />
+              <MdFacebook
+                size={24}
+                className="cursor-pointer text-gray-300 hover:text-white"
+              />
+              <AiFillTwitterCircle
+                size={24}
+                className="cursor-pointer text-gray-300 hover:text-white"
+              />
+              <AiFillInstagram
+                size={24}
+                className="cursor-pointer text-gray-300 hover:text-white"
+              />
+              <AiFillYoutube
+                size={24}
+                className="cursor-pointer text-gray-300 hover:text-white"
+              />
             </div>
           </div>
         </div>
