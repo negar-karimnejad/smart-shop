@@ -1,5 +1,5 @@
-import Container from "@/components/ui/Container";
-import SingleProduct from "@/components/share/single-product/SingleProduct";
+import Container from "../../../components/ui/Container";
+import SingleProduct from "../../../components/share/single-product/SingleProduct";
 
 const getProduct = async (id) => {
   // Fetch products based on the provided query parameters

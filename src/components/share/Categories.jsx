@@ -1,6 +1,6 @@
 "use client";
 
-import { categories } from "@/data";
+import { categories } from "../../data";
 import { useState } from "react";
 import Container from "../ui/Container";
 

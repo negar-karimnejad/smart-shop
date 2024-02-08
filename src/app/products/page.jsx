@@ -1,4 +1,4 @@
-import Products from "@/components/share/Products";
+import Products from "../../components/share/Products";
 
 async function page() {
   return <Products />;

@@ -1,4 +1,7 @@
-import { formatCurrency } from "@/utilities/formatCurrency";
+"use client";
+
+import { formatCurrency } from "../../../utilities/formatCurrency";
+import { useState } from "react";
 import Button from "../../ui/Button";
 import ProductColor from "./ProductColor";
 import ProductQuantity from "./ProductQuantity";
@@ -6,8 +9,34 @@ import ProductRating from "./ProductRating";
 import SeparatorLine from "./SeparatorLine";
 
 function ProductDetails({ product, chosenColor, setChosenColor }) {
-  const { name, price, reviews, description, category, brand, inStock } =
-    product;
+  const {
+    id: productId,
+    name,
+    price,
+    reviews,
+    description,
+    category,
+    brand,
+    inStock,
+  } = product;
+  const [loading, setLoading] = useState(false);
+
+  const addToCart = async () => {
+    try {
+      setLoading(true);
+      await fetch("http:localhost:3000/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: { productId },
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -41,7 +70,9 @@ function ProductDetails({ product, chosenColor, setChosenColor }) {
       <ProductQuantity />
       <SeparatorLine />
       <div className="max-w-xs">
-        <Button>Add To Cart</Button>
+        <Button onClick={addToCart} disabled={loading}>
+          {loading ? "Adding To Cart..." : "Add To Cart"}
+        </Button>
       </div>
     </div>
   );

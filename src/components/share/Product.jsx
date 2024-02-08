@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/utilities/formatCurrency";
+import { formatCurrency } from "../../utilities/formatCurrency";
 import Link from "next/link";
 import { BsStar, BsStarFill } from "react-icons/bs";
 
