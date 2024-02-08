@@ -1,6 +1,8 @@
 import { Poppins } from "next/font/google";
 import Footer from "../components/share/Footer";
 import Navbar from "../components/share/navbar/Navbar";
+import HotToastContext from "../../context/HotToastContext";
+
 import "./globals.css";
 
 const poppins = Poppins({
@@ -18,6 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} text-slate-700`}>
         <div className="flex flex-col min-h-screen">
+          <HotToastContext />
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />

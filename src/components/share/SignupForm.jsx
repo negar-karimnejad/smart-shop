@@ -33,14 +33,14 @@ function SignupForm() {
     <Container>
       <div className="my-8 shadow-lg rounded-lg p-7 max-w-xl mx-auto">
         <h1 className="font-bold text-2xl text-center">Sign up for E-Shop</h1>
-        <Button
-          className="bg-white border-2 my-5 border-gray-600 font-semibold text-black flex justify-center items-center gap-2 hover:text-slate-600 hover:bg-white"
+        <button
+          className="w-full rounded-md cursor-pointer bg-transparent px-2 py-3 transition-all border-2 my-5 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600"
           disabled={isSubmitting}
           //   onClick={() => signIn("github")}
         >
           <BsGithub size={24} />
           Sign up with Github
-        </Button>
+        </button>
 
         <form
           onSubmit={(e) => {
