@@ -1,4 +1,5 @@
-import NextAuth from "next-auth";
+import bcrypt from "bcrypt";
+import nextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import prisma from "../../../../../lib/prismadb";
 
@@ -8,7 +9,7 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
-    
+
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -16,7 +17,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = await prisma.findOne({
+        const user = await prisma.user.findOne({
           email: credentials.email,
         });
 
@@ -36,6 +37,38 @@ export const authOptions = {
       },
     }),
   ],
+  debug: process.env.NODE_ENV === "development",
+  pages: {
+    signIn: "/sign-in",
+    error: "/sign-in",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account.provider === "github") {
+        try {
+          const userexists = await prisma.user.findOne({ email: user.email });
+
+          if (!userexists) {
+            await prisma.user.create({
+              data: {
+                username: profile.login,
+                email: profile.email,
+                image: profile.avatar_url,
+              },
+            });
+          }
+        } catch (error) {
+          console.log(error);
+          return false;
+        }
+      }
+      return true;
+    },
+  },
 };
 
-export default NextAuth(authOptions);
+const handler = nextAuth(authOptions);
+export { handler as GET, handler as POST };
