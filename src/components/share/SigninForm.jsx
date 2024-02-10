@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import toast from "react-hot-toast";
+// import { useRouter } from "next/navigation";
+import { useState } from "react";
+// import toast from "react-hot-toast";
 import { BsGithub } from "react-icons/bs";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Input from "../ui/Input";
 
 function SigninForm() {
-  const router = useRouter();
-  const ref = useRef(null);
+  // const router = useRouter();
+  // const ref = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (

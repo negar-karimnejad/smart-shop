@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 "use client";
 
 import Link from "next/link";
@@ -23,10 +22,11 @@ function SignupForm() {
     if (result?.userExists) {
       toast.error(result?.userExists);
     } else {
-      toast.success("Welcome🎉, Please Sign In");
-      setIsSubmitting(false);
-      router.push("/sign-in");
-      ref.current?.reset();
+      alert("yes")
+      // toast.success("Welcome🎉, Please Sign In");
+      // setIsSubmitting(false);
+      // router.push("/sign-in");
+      // ref.current?.reset();
     }
   };
 
