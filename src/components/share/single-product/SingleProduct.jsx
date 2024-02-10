@@ -7,7 +7,6 @@ import ProductReviews from "./ProductReviews";
 
 function SingleProduct({ product }) {
   const { images } = product;
-  
   const [chosenColor, setChosenColor] = useState(images[0].color);
 
   return (

@@ -7,37 +7,26 @@ import ProductColor from "./ProductColor";
 import ProductQuantity from "./ProductQuantity";
 import ProductRating from "./ProductRating";
 import SeparatorLine from "./SeparatorLine";
+import { useCart } from "../../../../hooks/useCart";
 
 function ProductDetails({ product, chosenColor, setChosenColor }) {
-  const {
-    id: productId,
-    name,
-    price,
-    reviews,
-    description,
-    category,
-    brand,
-    inStock,
-  } = product;
+  const { handleAddToCart, cartProducts } = useCart();
+  const { name, price, reviews, description, category, brand, inStock } =
+    product;
   const [loading, setLoading] = useState(false);
 
   const addToCart = async () => {
     try {
       setLoading(true);
-      await fetch("http://localhost:3000/api/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId }),
-      });
+      handleAddToCart(product);
       setLoading(false);
     } catch (error) {
       console.error("Error adding product to cart:", error);
       setLoading(false);
     }
   };
-
+  
+  console.log(cartProducts);
   return (
     <div>
       <h1 className="text-2xl font-bold">{name}</h1>
