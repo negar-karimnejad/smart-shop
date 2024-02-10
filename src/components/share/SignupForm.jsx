@@ -1,8 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope */
 "use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { BsGithub } from "react-icons/bs";
 import { signupUser } from "../../../lib/actions";
 import Button from "../ui/Button";
