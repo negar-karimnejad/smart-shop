@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
+    "noImplicitAny": true,
     "lib": [
       "esnext"
     ],

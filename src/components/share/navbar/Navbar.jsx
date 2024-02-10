@@ -23,7 +23,6 @@ function Navbar() {
             <UserNav setIsOpen={setIsOpen} />
           </div>
         </Container>
-
         <Categories />
       </div>
 

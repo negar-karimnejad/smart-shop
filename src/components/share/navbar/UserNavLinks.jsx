@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 function UserNavLinks({ setIsOpen }) {
-  const user = true;
-  const isAdmin = true;
+  const user = false;
+  const isAdmin = false;
 
   return (
     <div
@@ -26,8 +26,12 @@ function UserNavLinks({ setIsOpen }) {
           </>
         ) : (
           <>
-            <Link href={"/sign-in"}>Login</Link>
-            <Link href={"/sign-up"}>Register</Link>
+            <Link href={"/sign-in"} onClick={() => setIsOpen(false)}>
+              Login
+            </Link>
+            <Link href={"/sign-up"} onClick={() => setIsOpen(false)}>
+              Register
+            </Link>
           </>
         )}
       </div>
