@@ -1,7 +1,7 @@
 
 function ProductColor({ product, chosenColor, setChosenColor }) {
   return (
-    <p className="flex items-center gap-2">
+    <div className="flex items-center gap-2">
       <b className="uppercase text-gray-700 text-sm mr-3">Color:</b>
       {product?.images.map((image) => (
         <div
@@ -17,7 +17,7 @@ function ProductColor({ product, chosenColor, setChosenColor }) {
           ></div>
         </div>
       ))}
-    </p>
+    </div>
   );
 }
 

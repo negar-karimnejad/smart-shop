@@ -14,7 +14,7 @@ function CartProduct() {
         </div>
       </div>
       <p className="">$2999.00</p>
-      <p className="flex items-center justify-center gap-3">
+      <div className="flex items-center justify-center gap-3">
         <button className="border rounded-md w-8 h-8 flex items-center justify-center">
           -
         </button>
@@ -22,7 +22,7 @@ function CartProduct() {
         <button className="border rounded-md w-8 h-8 flex items-center justify-center">
           +
         </button>
-      </p>
+      </div>
       <p className="font-bold ">$100.00</p>
     </div>
   );

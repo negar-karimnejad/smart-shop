@@ -1,18 +1,44 @@
 "use client";
 
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
-import { useState } from "react";
-// import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { BsGithub } from "react-icons/bs";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Input from "../ui/Input";
+import { signIn } from "next-auth/react";
 
 function SigninForm() {
-  // const router = useRouter();
-  // const ref = useRef(null);
+  const router = useRouter();
+  const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitSignin = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const formData = new FormData(formRef.current);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+      toast.success("Authentication successful");
+      setIsSubmitting(false);
+      router.refresh;
+      router.push("/");
+    } catch (error) {
+      toast.error(error.message || "Authentication failed");
+    }
+  };
 
   return (
     <Container>
@@ -21,13 +47,17 @@ function SigninForm() {
         <button
           className="w-full rounded-md cursor-pointer bg-transparent px-2 py-3 transition-all border-2 my-5 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600"
           disabled={isSubmitting}
-          //   onClick={() => signIn("github")}
+          onClick={() => signIn("github")}
         >
           <BsGithub size={24} />
           Continue with Github
         </button>
 
-        <form className="pt-5 flex flex-col gap-4 border-t">
+        <form
+          onSubmit={submitSignin}
+          ref={formRef}
+          className="pt-5 flex flex-col gap-4 border-t"
+        >
           <Input
             type="email"
             name="email"
@@ -50,12 +80,12 @@ function SigninForm() {
             {isSubmitting ? "Signing In..." : "Sign In"}
           </Button>
         </form>
-        <p className="text-center text-sm mt-4">
+        <div className="text-center text-sm mt-4">
           Do not have an account?{" "}
           <Link className="underline" href="/sign-up">
             Sign up
           </Link>
-        </p>
+        </div>
       </div>
     </Container>
   );

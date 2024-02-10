@@ -22,11 +22,10 @@ function SignupForm() {
     if (result?.userExists) {
       toast.error(result?.userExists);
     } else {
-      alert("yes")
-      // toast.success("Welcome🎉, Please Sign In");
-      // setIsSubmitting(false);
-      // router.push("/sign-in");
-      // ref.current?.reset();
+      toast.success("Welcome🎉, Please Sign In");
+      setIsSubmitting(false);
+      router.push("/sign-in");
+      ref.current?.reset();
     }
   };
 
@@ -80,12 +79,12 @@ function SignupForm() {
             {isSubmitting ? "Signing Up..." : "Sign Up"}
           </Button>
         </form>
-        <p className="text-center text-sm mt-4">
+        <div className="text-center text-sm mt-4">
           Already have an account?{" "}
           <Link className="underline" href="/sign-in">
             Sign in
           </Link>
-        </p>
+        </div>
       </div>
     </Container>
   );

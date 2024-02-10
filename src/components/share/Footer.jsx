@@ -42,14 +42,14 @@ function Footer() {
           <div className="flex flex-col gap-2">
             <h1 className="font-bold">About Us</h1>
             <p className="text-sm text-gray-300">
-              The next time you're wondering, “Where's an electronics store near
-              me?” odds are Best Buy is your closest option. With more than
-              1,100 electronics stores across the United States, and online at
-              BestBuy.com, we're always ready to show you what's new in consumer
-              electronics technology.
+              The next time you&apos;re wondering, “Where&apos;s an electronics
+              store near me?” odds are Best Buy is your closest option. With
+              more than 1,100 electronics stores across the United States, and
+              online at BestBuy.com, we&apos;re always ready to show you
+              what&apos;s new in consumer electronics technology.
             </p>
             <p className="text-sm text-gray-300">
-              &copy; 2023 E-Shop. All rights reserved.
+              &copy; {new Date().getFullYear()} E-Shop. All rights reserved.
             </p>
           </div>
 

@@ -12,7 +12,7 @@ export const products = [
     price: 2999,
     brand: "apple",
     category: "Phone",
-    inStock: true,
+    inStock: false,
     images: [
       {
         color: "White",
@@ -35,7 +35,7 @@ export const products = [
     price: 102.99,
     brand: "logitech",
     category: "Accesories",
-    inStock: true,
+    inStock: false,
     images: [
       {
         color: "Black",

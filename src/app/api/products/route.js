@@ -1,4 +1,4 @@
-import { products } from "@/data";
+import { products } from "../../../data";
 import { NextResponse } from "next/server";
 
 export async function GET() {

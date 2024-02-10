@@ -22,7 +22,6 @@ function ProductDetails({ product, chosenColor, setChosenColor }) {
   const [loading, setLoading] = useState(false);
 
   const addToCart = async () => {
-    
     try {
       setLoading(true);
       await fetch("http://localhost:3000/api/cart", {
@@ -60,7 +59,9 @@ function ProductDetails({ product, chosenColor, setChosenColor }) {
         <b className="uppercase text-gray-700 text-sm">Brand: </b>
         <span className="text-gray-600">{brand}</span>
       </p>
-      {inStock && <span className="text-sm text-blue-400">inStock</span>}
+      <span className="text-sm text-blue-400">
+        {inStock ? "In stock" : "Out of stock"}
+      </span>
       <SeparatorLine />
       <ProductColor
         product={product}
