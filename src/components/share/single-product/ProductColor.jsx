@@ -1,5 +1,4 @@
-
-function ProductColor({ product, chosenColor, setChosenColor }) {
+function ProductColor({ product, cartProduct, setCartProduct }) {
   return (
     <div className="flex items-center gap-2">
       <b className="uppercase text-gray-700 text-sm mr-3">Color:</b>
@@ -7,11 +6,16 @@ function ProductColor({ product, chosenColor, setChosenColor }) {
         <div
           key={image.colorCode}
           className={`${
-            chosenColor === image.color && "border-2 border-sky-500"
+            cartProduct?.selectedImage?.color === image.color &&
+            "border-2 border-sky-500"
           } w-8 h-8 p-1 flex items-center justify-center rounded-full`}
         >
           <div
-            onClick={() => setChosenColor(image.color)}
+            onClick={() =>
+              setCartProduct((prev) => {
+                return { ...prev, selectedImage: image };
+              })
+            }
             style={{ backgroundColor: image.color }}
             className="w-5 h-5 rounded-full cursor-pointer"
           ></div>

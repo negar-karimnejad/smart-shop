@@ -6,19 +6,32 @@ import ProductDetails from "./ProductDetails";
 import ProductReviews from "./ProductReviews";
 
 function SingleProduct({ product }) {
-  const { images } = product;
-  const [chosenColor, setChosenColor] = useState(images[0].color);
+  const [cartProduct, setCartProduct] = useState({
+    id: product.id,
+    name: product.name,
+    brand: product.brand,
+    category: product.category,
+    description: product.description,
+    quantity: 1,
+    price: product.price,
+    selectedImage: product.images[0],
+  });
 
   return (
     <>
       <div className="flex lg:flex-row flex-col-reverse max-md:flex-row max-md:gap-20 lg:gap-20 gap-0 justify-center items-center">
         <div className="flex lg:flex-col max-md:flex-col justify-center items-center gap-3 border p-5">
-          {images.map((item, index) => (
+          {product.images.map((item, index) => (
             <div
               key={index}
-              onClick={() => setChosenColor(item.color)}
+              onClick={() =>
+                setCartProduct((prev) => {
+                  return { ...prev, selectedImage: item };
+                })
+              }
               className={`${
-                chosenColor === item.color && "border-2 border-sky-500"
+                cartProduct?.selectedImage?.color === item.color &&
+                "border-2 border-sky-500"
               } cursor-pointer p-2`}
             >
               <Image src={item.image} alt={item.color} width={60} height={60} />
@@ -26,8 +39,8 @@ function SingleProduct({ product }) {
           ))}
         </div>
         <div>
-          {images.map((item, index) => {
-            if (item.color === chosenColor) {
+          {product.images.map((item, index) => {
+            if (item.color === cartProduct?.selectedImage?.color) {
               return (
                 <Image
                   key={index}
@@ -44,8 +57,8 @@ function SingleProduct({ product }) {
 
       <ProductDetails
         product={product}
-        chosenColor={chosenColor}
-        setChosenColor={setChosenColor}
+        cartProduct={cartProduct}
+        setCartProduct={setCartProduct}
       />
 
       <div className="flex flex-col">

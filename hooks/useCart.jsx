@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 
 const { createContext } = require("react");
@@ -10,6 +10,12 @@ export const CartContextProvider = (props) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
 
+  useEffect(() => {
+    const cartItems = localStorage.getItem("shopping-cart");
+    const cProducts = JSON.parse(cartItems);
+    setCartProducts(cProducts);
+  }, []);
+  
   const handleAddToCart = (product) => {
     setCartProducts((cartProducts) => {
       if (cartProducts.find((item) => item.id === product.id) == null) {
@@ -24,6 +30,7 @@ export const CartContextProvider = (props) => {
         });
       }
     });
+    localStorage.setItem("shopping-cart", JSON.stringify(cartProducts));
   };
 
   const removeFromCart = (id) => {
@@ -36,7 +43,7 @@ export const CartContextProvider = (props) => {
 
   const incrementCartQty = (id) => {
     setCartTotalQty(
-      cartProducts.find((product) => {
+      cartProducts?.find((product) => {
         if (product.id === id) {
           setCartProducts([
             ...cartProducts,
@@ -51,9 +58,9 @@ export const CartContextProvider = (props) => {
 
   const decrementCartQty = (id) => {
     setCartProducts(
-      cartProducts.find((product) => product.id === id).quantity === 1
-        ? cartProducts.filter((product) => product.id !== id)
-        : cartProducts.find((product) => {
+      cartProducts?.find((product) => product.id === id)?.quantity === 1
+        ? cartProducts?.filter((product) => product.id !== id)
+        : cartProducts?.find((product) => {
             if (product.id === id) {
               [...cartProducts, { ...product, quantity: product.quantity - 1 }];
             }

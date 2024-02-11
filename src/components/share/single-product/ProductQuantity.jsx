@@ -1,13 +1,26 @@
+import { useCart } from "../../../../hooks/useCart";
 
-function ProductQuantity() {
+function ProductQuantity({ cartProduct }) {
+  const { incrementCartQty, decrementCartQty } = useCart();
+
   return (
     <div className="flex items-center gap-3">
       <b className="uppercase text-gray-700 text-sm mr-3">Quantity: </b>
-      <button className="border rounded-md w-8 h-8 flex items-center justify-center">
+      <button
+        onClick={() => {
+          incrementCartQty(cartProduct.id);
+        }}
+        className="border rounded-md w-8 h-8 flex items-center justify-center"
+      >
         -
       </button>
-      <p>1</p>
-      <button className="border rounded-md w-8 h-8 flex items-center justify-center">
+      <p>{cartProduct.quantity}</p>
+      <button
+        onClick={() => {
+          decrementCartQty(cartProduct.id);
+        }}
+        className="border rounded-md w-8 h-8 flex items-center justify-center"
+      >
         +
       </button>
     </div>

@@ -9,7 +9,7 @@ import ProductRating from "./ProductRating";
 import SeparatorLine from "./SeparatorLine";
 import { useCart } from "../../../../hooks/useCart";
 
-function ProductDetails({ product, chosenColor, setChosenColor }) {
+function ProductDetails({ product, cartProduct, setCartProduct }) {
   const { handleAddToCart, cartProducts } = useCart();
   const { name, price, reviews, description, category, brand, inStock } =
     product;
@@ -18,15 +18,15 @@ function ProductDetails({ product, chosenColor, setChosenColor }) {
   const addToCart = async () => {
     try {
       setLoading(true);
-      handleAddToCart(product);
+      handleAddToCart(cartProduct);
       setLoading(false);
     } catch (error) {
       console.error("Error adding product to cart:", error);
       setLoading(false);
     }
   };
-  
-  console.log(cartProducts);
+
+  console.log("😂", cartProducts);
   return (
     <div>
       <h1 className="text-2xl font-bold">{name}</h1>
@@ -54,11 +54,11 @@ function ProductDetails({ product, chosenColor, setChosenColor }) {
       <SeparatorLine />
       <ProductColor
         product={product}
-        chosenColor={chosenColor}
-        setChosenColor={setChosenColor}
+        cartProduct={cartProduct}
+        setCartProduct={setCartProduct}
       />
       <SeparatorLine />
-      <ProductQuantity />
+      <ProductQuantity cartProduct={cartProduct} />
       <SeparatorLine />
       <div className="max-w-xs">
         <Button onClick={addToCart} disabled={loading}>
