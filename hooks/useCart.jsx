@@ -12,14 +12,15 @@ export const CartContextProvider = (props) => {
 
   useEffect(() => {
     const cartItems = localStorage.getItem("shopping-cart");
+    if (cartItems?.length) return;
     const cProducts = JSON.parse(cartItems);
     setCartProducts(cProducts);
   }, []);
-  
+
   const handleAddToCart = (product) => {
     setCartProducts((cartProducts) => {
-      if (cartProducts.find((item) => item.id === product.id) == null) {
-        return [...cartProducts, { ...product, quantity: 1 }];
+      if (cartProducts?.find((item) => item.id === product.id) == null) {
+        return [...cartProducts, product];
       } else {
         return cartProducts.map((item) => {
           if (item.id === product.id) {

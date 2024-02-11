@@ -1,5 +1,5 @@
 import Container from "../../../components/ui/Container";
-import SingleProduct from "../../../components/share/single-product/SingleProduct";
+import ProductDetails from "../../../components/share/product-details/ProductDetails";
 
 const getProduct = async (id) => {
   // Fetch products based on the provided query parameters
@@ -13,7 +13,7 @@ async function page({ params }) {
   return (
     <Container>
       <div className="mt-5 grid md:grid-cols-2 grid-cols-1 gap-10 xl:gap-0">
-        <SingleProduct product={product} />
+        <ProductDetails product={product} />
       </div>
     </Container>
   );

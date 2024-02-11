@@ -149,8 +149,8 @@ export const products = [
     inStock: true,
     images: [
       {
-        color: "Graphite",
-        colorCode: " #383838",
+        color: "Black",
+        colorCode: " #333",
         image:
           "https://m.media-amazon.com/images/I/61ni3t1ryQL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
       },

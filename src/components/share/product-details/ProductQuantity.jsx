@@ -1,14 +1,21 @@
-import { useCart } from "../../../../hooks/useCart";
-
-function ProductQuantity({ cartProduct }) {
-  const { incrementCartQty, decrementCartQty } = useCart();
-
+function ProductQuantity({ cartProduct, setCartProduct }) {
+  const handleIncrementCartQty = () => {
+    setCartProduct((prev) => {
+      return { ...prev, quantity: prev.quantity + 1 };
+    });
+  };
+  const handleDecrementCartQty = () => {
+    setCartProduct((prev) => {
+      return { ...prev, quantity: prev.quantity - 1 };
+    });
+  };
+  
   return (
     <div className="flex items-center gap-3">
       <b className="uppercase text-gray-700 text-sm mr-3">Quantity: </b>
       <button
         onClick={() => {
-          incrementCartQty(cartProduct.id);
+          handleIncrementCartQty();
         }}
         className="border rounded-md w-8 h-8 flex items-center justify-center"
       >
@@ -17,7 +24,7 @@ function ProductQuantity({ cartProduct }) {
       <p>{cartProduct.quantity}</p>
       <button
         onClick={() => {
-          decrementCartQty(cartProduct.id);
+          handleDecrementCartQty();
         }}
         className="border rounded-md w-8 h-8 flex items-center justify-center"
       >
