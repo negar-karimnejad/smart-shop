@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const { createContext } = require("react");
 
@@ -12,9 +13,9 @@ export const CartContextProvider = (props) => {
 
   useEffect(() => {
     const cartItems = localStorage.getItem("shopping-cart");
-    if (cartItems?.length) return;
-    const cProducts = JSON.parse(cartItems);
-    setCartProducts(cProducts);
+    if (cartItems) {
+      setCartProducts(JSON.parse(cartItems));
+    }
   }, []);
 
   const handleAddToCart = (product) => {
@@ -31,6 +32,7 @@ export const CartContextProvider = (props) => {
         });
       }
     });
+    toast.success("Product added to cart");
     localStorage.setItem("shopping-cart", JSON.stringify(cartProducts));
   };
 

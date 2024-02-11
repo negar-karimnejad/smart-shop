@@ -1,17 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { MdCheck } from "react-icons/md";
 import { useCart } from "../../../../hooks/useCart";
 import { formatCurrency } from "../../../utilities/formatCurrency";
 import Button from "../../ui/Button";
+import SeparatorLine from "../../ui/SeparatorLine";
 import ProductColor from "./ProductColor";
 import ProductQuantity from "./ProductQuantity";
 import ProductRating from "./ProductRating";
 import ProductReviews from "./ProductReviews";
-import SeparatorLine from "../../ui/SeparatorLine";
 
 function ProductDetails({ product }) {
+  const router = useRouter();
+  const [isProductInCart, setIsProductInCart] = useState(false);
   const [cartProduct, setCartProduct] = useState({
     id: product.id,
     name: product.name,
@@ -23,19 +27,26 @@ function ProductDetails({ product }) {
     selectedImage: product.images[0],
   });
 
-  const { handleAddToCart } = useCart();
-  const [loading, setLoading] = useState(false);
+  const { handleAddToCart, cartProducts } = useCart();
+
+  useEffect(() => {
+    setIsProductInCart(false);
+    const existInCart = cartProducts.findIndex(
+      (item) => item.id === product.id
+    );
+    if (existInCart > -1) {
+      setIsProductInCart(true);
+    }
+  }, [cartProducts]);
 
   const addToCart = async () => {
     try {
-      setLoading(true);
       handleAddToCart(cartProduct);
-      setLoading(false);
     } catch (error) {
       console.error("Error adding product to cart:", error);
-      setLoading(false);
     }
   };
+
   return (
     <>
       <div className="flex lg:flex-row flex-col-reverse max-md:flex-row max-md:gap-20 lg:gap-20 gap-0 justify-center items-center">
@@ -100,29 +111,55 @@ function ProductDetails({ product }) {
           {product.inStock ? "In stock" : "Out of stock"}
         </span>
         <SeparatorLine />
-        <ProductColor
-          product={product}
-          cartProduct={cartProduct}
-          setCartProduct={setCartProduct}
-        />
-        <SeparatorLine />
-        <ProductQuantity
-          cartProduct={cartProduct}
-          setCartProduct={setCartProduct}
-        />
-        <SeparatorLine />
-        <div className="max-w-xs">
-          <Button onClick={addToCart} disabled={loading}>
-            {loading ? "Adding To Cart..." : "Add To Cart"}
-          </Button>
-        </div>
+        {!isProductInCart ? (
+          <>
+            <ProductColor
+              product={product}
+              cartProduct={cartProduct}
+              setCartProduct={setCartProduct}
+            />
+            <SeparatorLine />
+            <ProductQuantity
+              cartProduct={cartProduct}
+              setCartProduct={setCartProduct}
+            />
+            <SeparatorLine />
+            <div className="max-w-xs">
+              <Button onClick={addToCart}>Add To Cart</Button>
+            </div>
+          </>
+        ) : (
+          <div className="mt-5 w-full">
+            <p className="my-3 text-slate-500 flex items-center gap-1">
+              <MdCheck
+                className="text-white font-bold bg-teal-400 rounded-full"
+                size={18}
+              />
+              <span className="text-[14px]">Product added to cart</span>
+            </p>
+            <button
+              onClick={() => {
+                router.push("/cart");
+              }}
+              className="bg-transparent border-2 border-slate-500 w-full rounded-md font-semibold cursor-pointer px-2 py-3 transition-all hover:text-slate-500"
+            >
+              View Cart
+            </button>
+          </div>
+        )}
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-10">
         <h1 className="font-bold text-xl mb-5">Product Reviews</h1>
-        {product.reviews.map((review) => (
-          <ProductReviews key={review.id} review={review} />
-        ))}
+        {product.reviews.length > 0 ? (
+          product.reviews.map((review) => (
+            <ProductReviews key={review.id} review={review} />
+          ))
+        ) : (
+          <div className="border-b w-fit text-orange-500">
+            There is no review for this product😕
+          </div>
+        )}
       </div>
     </>
   );
