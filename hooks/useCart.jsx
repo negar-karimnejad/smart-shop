@@ -9,14 +9,15 @@ export const CartContext = createContext(null);
 export const CartContextProvider = (props) => {
   // eslint-disable-next-line no-unused-vars
   const [cartTotalQty, setCartTotalQty] = useState(0);
-  const [cartProducts, setCartProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState(
+    localStorage.getItem("shopping-cart")
+      ? JSON.parse(localStorage.getItem("shopping-cart"))
+      : []
+  );
 
   useEffect(() => {
-    const cartItems = localStorage.getItem("shopping-cart");
-    if (cartItems) {
-      setCartProducts(JSON.parse(cartItems));
-    }
-  }, []);
+    localStorage.setItem("shopping-cart", JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
   const handleAddToCart = (product) => {
     setCartProducts((cartProducts) => {
@@ -33,7 +34,6 @@ export const CartContextProvider = (props) => {
       }
     });
     toast.success("Product added to cart");
-    localStorage.setItem("shopping-cart", JSON.stringify(cartProducts));
   };
 
   const removeFromCart = (id) => {

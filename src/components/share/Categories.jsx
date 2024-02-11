@@ -8,7 +8,7 @@ function Categories() {
   const [isActive, setIsActive] = useState("All");
 
   return (
-    <div className="bg-white max-md:overflow-x-auto shadow-sm pt-3">
+    <div className="bg-white max-md:overflow-x-auto shadow pt-3 z-40 sticky top-[4.9rem]">
       <Container>
         <ul className="flex items-end justify-between gap-8">
           {categories.map((category) => (

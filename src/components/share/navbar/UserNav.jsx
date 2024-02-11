@@ -2,8 +2,10 @@ import Link from "next/link";
 import { LuUser2 } from "react-icons/lu";
 import { MdArrowDropDown } from "react-icons/md";
 import { PiShoppingCart } from "react-icons/pi";
+import { useCart } from "../../../../hooks/useCart";
 
 function UserNav({ setIsOpen }) {
+  const { cartProducts } = useCart();
   return (
     <>
       <ul className="flex-1 flex items-center gap-8 text-2xl text-gray-800 justify-end">
@@ -11,7 +13,7 @@ function UserNav({ setIsOpen }) {
           <Link href={"/cart"}>
             <PiShoppingCart />
             <span className="absolute bottom-4 left-3 bg-gray-700 rounded-full flex items-center justify-center text-sm text-white w-5 h-5">
-              5
+              {cartProducts?.length}
             </span>
           </Link>
         </li>

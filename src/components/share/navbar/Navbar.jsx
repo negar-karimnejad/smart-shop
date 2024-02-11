@@ -1,13 +1,12 @@
 "use client";
 
+import { Redressed } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
-import Categories from "../Categories";
 import Container from "../../ui/Container";
 import NavSearch from "./NavSearch";
 import UserNav from "./UserNav";
 import UserNavLinks from "./UserNavLinks";
-import { Redressed } from "next/font/google";
 
 const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 
@@ -29,7 +28,6 @@ function Navbar() {
             <UserNav setIsOpen={setIsOpen} />
           </div>
         </Container>
-        <Categories />
       </div>
 
       {isOpen && <UserNavLinks setIsOpen={setIsOpen} />}

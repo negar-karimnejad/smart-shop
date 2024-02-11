@@ -31,7 +31,7 @@ function ProductDetails({ product }) {
 
   useEffect(() => {
     setIsProductInCart(false);
-    const existInCart = cartProducts.findIndex(
+    const existInCart = cartProducts?.findIndex(
       (item) => item.id === product.id
     );
     if (existInCart > -1) {
@@ -156,8 +156,12 @@ function ProductDetails({ product }) {
             <ProductReviews key={review.id} review={review} />
           ))
         ) : (
-          <div className="border-b w-fit text-orange-500">
-            There is no review for this product😕
+          <div className="border-b w-fit text-slate-500 flex gap-1">
+            There is no review for
+            <span className="font-bold text-slate-600">
+              {product.name?.slice(0, 21)}
+            </span>
+            😕
           </div>
         )}
       </div>
