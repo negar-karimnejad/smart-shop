@@ -12,7 +12,7 @@ import Input from "../ui/Input";
 
 function SignupForm() {
   const { data: session } = useSession();
-  console.log(session);
+
   //
   const router = useRouter();
   const ref = useRef(null);
@@ -20,31 +20,32 @@ function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
     const formData = new FormData(ref.current);
     const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
 
-    setIsSubmitting(true);
-    const result = await fetch("http://localhost:3000/api/sign-up", {
+    // setIsSubmitting(true);
+    const result = await fetch("http://localhost:3000/api/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name, email, password }),
     });
+    console.log("result😋",result);
 
-    if (result?.userExists) {
-      toast.error(result?.userExists);
-    } else if (result?.error) {
-      toast.error(result?.error);
-    } else {
-      toast.success("Welcome🎉, Please Sign In");
-      setIsSubmitting(false);
-      ref.current?.reset();
-      router.push("/sign-in");
-    }
+    // if (result?.userExists) {
+    //   toast.error(result?.userExists);
+    // } else if (result?.error) {
+    //   toast.error(result?.error);
+    // } else {
+    //   toast.success("Welcome🎉, Please Sign In");
+      // setIsSubmitting(false);
+    //   ref.current?.reset();
+    //   router.push("/sign-in");
+    // }
   };
 
   return (
