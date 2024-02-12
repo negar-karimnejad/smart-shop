@@ -10,11 +10,10 @@ export const CartContextProvider = (props) => {
   // eslint-disable-next-line no-unused-vars
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartTotalAmount, setCartTotalAmount] = useState(0);
-  const [cartProducts, setCartProducts] = useState(
-    localStorage.getItem("shopping-cart")
-      ? JSON.parse(localStorage.getItem("shopping-cart"))
-      : []
-  );
+
+  const savedCart = localStorage.getItem("shopping-cart");
+  const initialCartProducts = savedCart ? JSON.parse(savedCart) : [];
+  const [cartProducts, setCartProducts] = useState(initialCartProducts);
 
   useEffect(() => {
     localStorage.setItem("shopping-cart", JSON.stringify(cartProducts));
@@ -43,9 +42,6 @@ export const CartContextProvider = (props) => {
     };
     getTotals();
   }, [cartProducts]);
-
-  console.log("cartTotalQty😫", cartTotalQty);
-  console.log("cartTotalAmount😫", cartTotalAmount);
 
   const handleAddToCart = (product) => {
     setCartProducts((cartProducts) => {

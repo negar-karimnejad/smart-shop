@@ -69,7 +69,7 @@ function SigninForm() {
           <Input
             type="password"
             name="password"
-            id="email"
+            id="password"
             label="Password"
             disabled={isSubmitting}
             className={`${isSubmitting && "opacity-50 cursor-default"}`}

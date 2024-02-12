@@ -2,7 +2,7 @@ function Input({ className, type, id, name, label, disabled }) {
   return (
     <div className="w-full relative">
       <input
-        className={`peer w-full p-3 pt-6 outline-none rounded-md font-light bg-transparent border-2 border-slate-400 transition ${
+        className={`peer w-full p-3 pt-6 font-medium outline-none rounded-md bg-transparent border-2 border-slate-400 transition ${
           className ? className : ""
         }`}
         type={type}
