@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { useState } from "react";
+/* eslint-disable no-unsafe-optional-chaining */
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const { createContext } = require("react");
@@ -9,6 +9,7 @@ export const CartContext = createContext(null);
 export const CartContextProvider = (props) => {
   // eslint-disable-next-line no-unused-vars
   const [cartTotalQty, setCartTotalQty] = useState(0);
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [cartProducts, setCartProducts] = useState(
     localStorage.getItem("shopping-cart")
       ? JSON.parse(localStorage.getItem("shopping-cart"))
@@ -18,6 +19,33 @@ export const CartContextProvider = (props) => {
   useEffect(() => {
     localStorage.setItem("shopping-cart", JSON.stringify(cartProducts));
   }, [cartProducts]);
+
+  useEffect(() => {
+    const getTotals = () => {
+      if (cartProducts) {
+        const { total, qty } = cartProducts?.reduce(
+          (acc, item) => {
+            const itemTotal = item.price * item.quantity;
+
+            acc.total += itemTotal;
+            acc.qty += item.quantity;
+
+            return acc;
+          },
+          {
+            total: 0,
+            qty: 0,
+          }
+        );
+        setCartTotalQty(qty);
+        setCartTotalAmount(total);
+      }
+    };
+    getTotals();
+  }, [cartProducts]);
+
+  console.log("cartTotalQty😫", cartTotalQty);
+  console.log("cartTotalAmount😫", cartTotalAmount);
 
   const handleAddToCart = (product) => {
     setCartProducts((cartProducts) => {
@@ -38,42 +66,51 @@ export const CartContextProvider = (props) => {
 
   const removeFromCart = (id) => {
     setCartProducts(cartProducts.filter((product) => product.id !== id));
+    toast.success("Product removed");
   };
 
   const clearCart = () => {
     setCartProducts([]);
+    setCartTotalQty(0);
+    toast.success("Cart cleared");
   };
 
   const incrementCartQty = (id) => {
-    setCartTotalQty(
-      cartProducts?.find((product) => {
-        if (product.id === id) {
-          setCartProducts([
-            ...cartProducts,
-            { ...product, quantity: product.quantity + 1 },
-          ]);
-        } else {
-          setCartProducts([...cartProducts, { ...product, quantity: 1 }]);
-        }
-      })
-    );
+    setCartProducts((currItems) => {
+      if (currItems.find((item) => item.id === id) == null) {
+        return [...currItems, { id, quantity: 1 }];
+      } else {
+        return currItems.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity + 1 };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
   };
 
   const decrementCartQty = (id) => {
-    setCartProducts(
-      cartProducts?.find((product) => product.id === id)?.quantity === 1
-        ? cartProducts?.filter((product) => product.id !== id)
-        : cartProducts?.find((product) => {
-            if (product.id === id) {
-              [...cartProducts, { ...product, quantity: product.quantity - 1 }];
-            }
-          })
-    );
+    setCartProducts((currItems) => {
+      if (currItems.find((item) => item.id === id)?.quantity === 1) {
+        return currItems.filter((item) => item.id !== id);
+      } else {
+        return currItems.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity - 1 };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
   };
 
   const value = {
-    cartTotalQty,
     cartProducts,
+    cartTotalQty,
+    cartTotalAmount,
     handleAddToCart,
     removeFromCart,
     incrementCartQty,

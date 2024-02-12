@@ -1,18 +1,18 @@
 "use client";
 import Link from "next/link";
-import {
-  BsArrowLeft
-} from "react-icons/bs";
+import { BsArrowLeft } from "react-icons/bs";
 import { CgArrowLeft } from "react-icons/cg";
 import { useCart } from "../../../hooks/useCart";
 import CartProduct from "../../components/share/CartProduct";
 import Container from "../../components/ui/Container";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 function Cart() {
-  const { cartProducts } = useCart();
+  const { cartProducts, clearCart, cartTotalAmount } = useCart();
+
   return (
     <Container>
-      {cartProducts.length > 0 ? (
+      {cartProducts?.length > 0 ? (
         <div className="mt-10">
           <h1 className="text-2xl text-center font-medium mb-10">
             Shopping Cart
@@ -29,14 +29,17 @@ function Cart() {
           ))}
 
           <div className="flex max-sm:flex-col max-sm:gap-10 justify-between items-start w-full py-4 mt-5">
-            <button className="border border-gray-500 rounded-md px-2 py-1 transition-all hover:text-slate-500">
+            <button
+              onClick={() => clearCart()}
+              className="border border-gray-500 rounded-md px-2 py-1 transition-all hover:text-slate-500"
+            >
               Clear Cart
             </button>
 
             <div className="flex flex-col">
               <div className="font-bold flex justify-between items-center mb-2">
                 <p>Subtotal</p>
-                <p>$2999</p>
+                <p className="text-xl">{formatCurrency(cartTotalAmount)}</p>
               </div>
               <p className="text-slate-500 text-sm mb-1">
                 Taxes and shipping calculated at checkout
