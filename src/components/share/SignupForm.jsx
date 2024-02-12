@@ -1,31 +1,49 @@
 "use client";
 
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BsGithub } from "react-icons/bs";
-import { signupUser } from "../../../lib/actions";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Input from "../ui/Input";
 
 function SignupForm() {
+  const { data: session } = useSession();
+  console.log(session);
+  //
   const router = useRouter();
   const ref = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    const result = await signupUser(formData);
+    const formData = new FormData(ref.current);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    setIsSubmitting(true);
+    const result = await fetch("http://localhost:3000/api/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
 
     if (result?.userExists) {
       toast.error(result?.userExists);
+    } else if (result?.error) {
+      toast.error(result?.error);
     } else {
       toast.success("Welcome🎉, Please Sign In");
       setIsSubmitting(false);
-      router.push("/sign-in");
       ref.current?.reset();
+      router.push("/sign-in");
     }
   };
 
@@ -36,18 +54,15 @@ function SignupForm() {
         <button
           className="w-full rounded-md cursor-pointer bg-transparent px-2 py-3 transition-all border-2 my-5 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600"
           disabled={isSubmitting}
-          //   onClick={() => signIn("github")}
+          onClick={() => signIn("github")}
         >
           <BsGithub size={24} />
           Sign up with Github
         </button>
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            handleSubmit(formData);
-          }}
+          ref={ref}
+          onSubmit={handleSubmit}
           className="pt-5 flex flex-col gap-4 border-t"
         >
           <Input

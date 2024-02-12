@@ -11,7 +11,10 @@ export const CartContextProvider = (props) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartTotalAmount, setCartTotalAmount] = useState(0);
 
-  const savedCart = localStorage.getItem("shopping-cart");
+  const savedCart =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("shopping-cart")
+      : false;
   const initialCartProducts = savedCart ? JSON.parse(savedCart) : [];
   const [cartProducts, setCartProducts] = useState(initialCartProducts);
 
