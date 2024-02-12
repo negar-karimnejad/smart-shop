@@ -53,21 +53,27 @@ function SignupForm() {
           <Input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder=""
+            id="name"
+            label="Name"
             disabled={isSubmitting}
             className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
           <Input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder=""
+            id="email"
+            label="Email"
             disabled={isSubmitting}
             className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
           <Input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder=""
+            id="password"
+            label="Password"
             disabled={isSubmitting}
             className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />

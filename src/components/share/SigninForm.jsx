@@ -61,14 +61,16 @@ function SigninForm() {
           <Input
             type="email"
             name="email"
-            placeholder="Email"
+            id="email"
+            label="Email"
             disabled={isSubmitting}
             className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
           <Input
             type="password"
             name="password"
-            placeholder="Password"
+            id="email"
+            label="Password"
             disabled={isSubmitting}
             className={`${isSubmitting && "opacity-50 cursor-default"}`}
           />
