@@ -1,11 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { LuUser2 } from "react-icons/lu";
 import { MdArrowDropDown } from "react-icons/md";
 import { PiShoppingCart } from "react-icons/pi";
 import { useCart } from "../../../../hooks/useCart";
+import UserNavLinks from "./UserNavLinks";
 
-function UserNav({ setIsOpen }) {
+function UserNav() {
+  const [isOpen, setIsOpen] = useState(false);
   const { cartTotalQty } = useCart();
+
   return (
     <>
       <ul className="flex-1 flex items-center gap-8 text-2xl text-gray-800 justify-end">
@@ -25,6 +31,8 @@ function UserNav({ setIsOpen }) {
           <MdArrowDropDown />
         </li>
       </ul>
+
+      {isOpen && <UserNavLinks setIsOpen={setIsOpen} />}
     </>
   );
 }

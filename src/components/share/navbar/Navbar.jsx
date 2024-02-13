@@ -2,18 +2,16 @@
 
 import { Redressed } from "next/font/google";
 import Link from "next/link";
-import { useState } from "react";
 import Container from "../../ui/Container";
 import NavSearch from "./NavSearch";
 import UserNav from "./UserNav";
-import UserNavLinks from "./UserNavLinks";
+import { getCurrentUser } from "../../../../providers/getCurrentUser";
 
 const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-
+async function Navbar() {
+  const currentUser = await getCurrentUser();
+  console.log("😎user=>>>", currentUser);
 
   return (
     <>
@@ -27,12 +25,10 @@ function Navbar() {
               E-Shop
             </Link>
             <NavSearch />
-            <UserNav setIsOpen={setIsOpen} />
+            <UserNav />
           </div>
         </Container>
       </div>
-
-      {isOpen && <UserNavLinks setIsOpen={setIsOpen} />}
     </>
   );
 }

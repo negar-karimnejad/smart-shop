@@ -1,10 +1,8 @@
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 function UserNavLinks({ setIsOpen }) {
-  const { data: session } = useSession();
-  const { user } = session;
   const isAdmin = false;
+  const user = false;
 
   return (
     <div
