@@ -27,12 +27,21 @@ function UserNav({ currentUser }) {
           onClick={() => setIsOpen((prev) => !prev)}
           className="flex items-center border border-gray-400 px-2 py-1.5 rounded-full cursor-pointer z-50"
         >
-          <LuUser2 />
+          {currentUser?.image ? (
+            <img
+              className="w-5 h-5 rounded-full object-contain"
+              src={currentUser?.image}
+            />
+          ) : (
+            <LuUser2 />
+          )}
           <MdArrowDropDown />
         </li>
       </ul>
 
-      {isOpen && <UserNavLinks currentUser={currentUser} setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <UserNavLinks currentUser={currentUser} setIsOpen={setIsOpen} />
+      )}
     </>
   );
 }

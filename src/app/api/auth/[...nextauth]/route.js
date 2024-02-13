@@ -1,16 +1,21 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import bcrypt from "bcryptjs";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import nextAuth from "next-auth";
+import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Github from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
 import prisma from "../../../../../lib/prismadb";
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    Github({
+    GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
 
     CredentialsProvider({
@@ -51,33 +56,57 @@ export const authOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account.provider === "github") {
-        try {
-          const userexists = await prisma.user.findUnique({
-            where: {
-              email: user.email,
-            },
-          });
 
-          if (!userexists) {
-            await prisma.user.create({
-              data: {
-                username: profile.login,
-                email: profile.email,
-                image: profile.avatar_url,
-              },
-            });
-          }
-        } catch (error) {
-          console.log(error);
-          return false;
-        }
-      }
-      return true;
-    },
-  },
+  // callbacks: {
+  //   async signIn({ user, account, profile }) {
+  //     if (account.provider === "google") {
+  //       try {
+  //         const userexists = await prisma.user.findUnique({
+  //           where: {
+  //             email: user.email,
+  //           },
+  //         });
+
+  //         if (!userexists) {
+  //           await prisma.user.create({
+  //             data: {
+  //               name: profile.login,
+  //               email: profile.email,
+  //               image: profile.avatar_url,
+  //             },
+  //           });
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //         return false;
+  //       }
+  //     }
+
+  //     if (account.provider === "github") {
+  //       try {
+  //         const userexists = await prisma.user.findUnique({
+  //           where: {
+  //             email: user.email,
+  //           },
+  //         });
+
+  //         if (!userexists) {
+  //           await prisma.user.create({
+  //             data: {
+  //               name: profile.login,
+  //               email: profile.email,
+  //               image: profile.avatar_url,
+  //             },
+  //           });
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //         return false;
+  //       }
+  //     }
+  //     return true;
+  //   },
+  // },
 };
 
 const handler = nextAuth(authOptions);

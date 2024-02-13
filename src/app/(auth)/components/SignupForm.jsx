@@ -3,17 +3,23 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { BsGithub } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 import Button from "../../../components/ui/Button";
-import Container from "../../../components/ui/Container";
 import Input from "../../../components/ui/Input";
 
-function SignupForm() {
+function SignupForm({ currentUser }) {
   const router = useRouter();
   const ref = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/cart");
+      router.refresh();
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,67 +55,77 @@ function SignupForm() {
     }
   };
 
-  return (
-    <Container>
-      <div className="my-8 shadow-lg rounded-lg p-7 max-w-xl mx-auto">
-        <h1 className="font-bold text-2xl text-center">Sign up for E-Shop</h1>
-        <button
-          className="w-full rounded-md cursor-pointer bg-transparent px-2 py-3 transition-all border-2 my-5 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600"
-          disabled={isSubmitting}
-          onClick={() => signIn("github")}
-        >
-          <BsGithub size={24} />
-          Sign up with Github
-        </button>
+  if (currentUser) {
+    return <p className="text-center font-medium">Logged in. Redirecting...</p>;
+  }
 
-        <form
-          ref={ref}
-          onSubmit={handleSubmit}
-          className="pt-5 flex flex-col gap-4 border-t"
+  return (
+    <>
+      <h1 className="font-bold text-2xl text-center">Sign up for E-Shop</h1>
+      <button
+        className="w-full rounded-md cursor-pointer bg-transparent px-2 py-3 transition-all border-2 mt-5 mb-2 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600"
+        disabled={isSubmitting}
+        onClick={() => signIn("github")}
+      >
+        <BsGithub size={24} />
+        Continue with Github
+      </button>
+      <button
+        className="w-full rounded-md cursor-pointer bg-transparent px-2 py-3 transition-all border-2 mb-4 border-gray-600 font-semibold text-slate-800 flex justify-center items-center gap-2 hover:text-slate-600"
+        disabled={isSubmitting}
+        onClick={() => signIn("google")}
+      >
+        <BsGoogle size={24} />
+        Continue with Google
+      </button>
+
+      <form
+        ref={ref}
+        onSubmit={handleSubmit}
+        className="pt-5 flex flex-col gap-4 border-t"
+      >
+        <Input
+          type="text"
+          name="name"
+          placeholder=""
+          id="name"
+          label="Name"
+          disabled={isSubmitting}
+          className={`${isSubmitting && "opacity-50 cursor-default"}`}
+        />
+        <Input
+          type="email"
+          name="email"
+          placeholder=""
+          id="email"
+          label="Email"
+          disabled={isSubmitting}
+          className={`${isSubmitting && "opacity-50 cursor-default"}`}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder=""
+          id="password"
+          label="Password"
+          disabled={isSubmitting}
+          className={`${isSubmitting && "opacity-50 cursor-default"}`}
+        />
+        <Button
+          type={"submit"}
+          disabled={isSubmitting}
+          className={`${isSubmitting && "opacity-50 cursor-default"}`}
         >
-          <Input
-            type="text"
-            name="name"
-            placeholder=""
-            id="name"
-            label="Name"
-            disabled={isSubmitting}
-            className={`${isSubmitting && "opacity-50 cursor-default"}`}
-          />
-          <Input
-            type="email"
-            name="email"
-            placeholder=""
-            id="email"
-            label="Email"
-            disabled={isSubmitting}
-            className={`${isSubmitting && "opacity-50 cursor-default"}`}
-          />
-          <Input
-            type="password"
-            name="password"
-            placeholder=""
-            id="password"
-            label="Password"
-            disabled={isSubmitting}
-            className={`${isSubmitting && "opacity-50 cursor-default"}`}
-          />
-          <Button
-            type={"submit"}
-            disabled={isSubmitting}
-            className={`${isSubmitting && "opacity-50 cursor-default"}`}
-          >
-            {isSubmitting ? "Signing Up..." : "Sign Up"}
-          </Button>
-        </form>
-        <div className="text-center text-sm mt-4">
-          Already have an account?{" "}
-          <Link className="underline" href="/sign-in">
-            Sign in
-          </Link>
-        </div>
+          {isSubmitting ? "Signing Up..." : "Sign Up"}
+        </Button>
+      </form>
+      <div className="text-center text-sm mt-4">
+        Already have an account?{" "}
+        <Link className="underline" href="/sign-in">
+          Sign in
+        </Link>
       </div>
-    </Container>
+    </>
   );
 }
 
