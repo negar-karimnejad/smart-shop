@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useCart } from "../../../hooks/useCart";
 import { formatCurrency } from "../../utilities/formatCurrency";
 
-/* eslint-disable no-unused-vars */
 function CartProduct({ product }) {
   const { removeFromCart, incrementCartQty, decrementCartQty } = useCart();
 

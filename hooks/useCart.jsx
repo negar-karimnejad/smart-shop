@@ -7,7 +7,6 @@ const { createContext } = require("react");
 export const CartContext = createContext(null);
 
 export const CartContextProvider = (props) => {
-  // eslint-disable-next-line no-unused-vars
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartTotalAmount, setCartTotalAmount] = useState(0);
 

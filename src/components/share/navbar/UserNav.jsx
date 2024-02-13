@@ -29,7 +29,7 @@ function UserNav({ currentUser }) {
         >
           {currentUser?.image ? (
             <img
-              className="w-5 h-5 rounded-full object-contain"
+              className="w-7 h-7 rounded-full object-contain"
               src={currentUser?.image}
             />
           ) : (
