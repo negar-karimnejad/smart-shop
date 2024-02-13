@@ -20,8 +20,10 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = await prisma.user.findOne({
-          email: credentials.email,
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials?.email,
+          },
         });
 
         if (!user || !user.hashedPassword) {
@@ -29,8 +31,8 @@ export const authOptions = {
         }
 
         const isCorrectPassword = await bcrypt.compare(
-          credentials.hashedPassword,
-          user.password
+          credentials.password,
+          user.hashedPassword
         );
 
         if (!isCorrectPassword) {
@@ -53,7 +55,11 @@ export const authOptions = {
     async signIn({ user, account, profile }) {
       if (account.provider === "github") {
         try {
-          const userexists = await prisma.user.findOne({ email: user.email });
+          const userexists = await prisma.user.findUnique({
+            where: {
+              email: user.email,
+            },
+          });
 
           if (!userexists) {
             await prisma.user.create({

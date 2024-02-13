@@ -18,6 +18,7 @@ function SigninForm() {
   const submitSignin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
     const formData = new FormData(formRef.current);
     const email = formData.get("email");
     const password = formData.get("password");
@@ -28,9 +29,11 @@ function SigninForm() {
         password,
         redirect: false,
       });
+
       if (result?.error) {
         throw new Error(result.error);
       }
+
       toast.success("Authentication successful");
       setIsSubmitting(false);
       router.refresh;

@@ -13,6 +13,8 @@ const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+
+
   return (
     <>
       <div className="bg-slate-200 sticky top-0 right-0 z-50">
