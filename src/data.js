@@ -190,12 +190,12 @@ export const categories = [
   { title: "Desktop", icon: <FaDesktop /> },
   { title: "Watch", icon: <MdWatch /> },
   { title: "TV", icon: <PiTelevisionSimple /> },
-  { title: "Accessories", icon: <FaKeyboard /> },
+  { title: "Accesories", icon: <FaKeyboard /> },
 ];
 export const customerServices = [
   "Contact Us",
   "Shipping Policy",
-  " Returns & Exchanges",
-  " Watches",
+  "Returns & Exchanges",
+  "Watches",
   "FAQs",
 ];
