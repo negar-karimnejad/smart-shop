@@ -1,29 +1,14 @@
-"use client";
-
 import { categories } from "../../data";
-import { useState } from "react";
 import Container from "../ui/Container";
+import Category from "./Category";
 
 function Categories() {
-  const [isActive, setIsActive] = useState("All");
-
   return (
     <div className="bg-white max-md:overflow-x-auto shadow pt-3 z-40 sticky top-[4.9rem]">
       <Container>
         <ul className="flex items-end justify-between gap-8">
           {categories.map((category) => (
-            <li
-              key={category.title}
-              onClick={() => setIsActive(category.title)}
-              className={`${
-                isActive === category.title
-                  ? "opacity-100 border-b-2 border-gray-800"
-                  : "opacity-60"
-              } flex items-center gap-1 hover:opacity-100 cursor-pointer py-2`}
-            >
-              <span>{category.icon}</span>
-              <span>{category.title}</span>
-            </li>
+            <Category key={category.title} category={category} />
           ))}
         </ul>
       </Container>
