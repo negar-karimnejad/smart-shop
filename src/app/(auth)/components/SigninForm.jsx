@@ -36,8 +36,8 @@ function SigninForm() {
 
       toast.success("Authentication successful");
       setIsSubmitting(false);
-      router.refresh;
       router.push("/");
+      router.refresh();
     } catch (error) {
       toast.error(error.message || "Authentication failed");
     }

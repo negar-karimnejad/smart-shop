@@ -8,7 +8,7 @@ import { PiShoppingCart } from "react-icons/pi";
 import { useCart } from "../../../../hooks/useCart";
 import UserNavLinks from "./UserNavLinks";
 
-function UserNav() {
+function UserNav({ currentUser }) {
   const [isOpen, setIsOpen] = useState(false);
   const { cartTotalQty } = useCart();
 
@@ -32,7 +32,7 @@ function UserNav() {
         </li>
       </ul>
 
-      {isOpen && <UserNavLinks setIsOpen={setIsOpen} />}
+      {isOpen && <UserNavLinks currentUser={currentUser} setIsOpen={setIsOpen} />}
     </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -11,9 +11,6 @@ import Container from "../../../components/ui/Container";
 import Input from "../../../components/ui/Input";
 
 function SignupForm() {
-  const { data: session } = useSession();
-  console.log("😎session=>", session);
-
   const router = useRouter();
   const ref = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);

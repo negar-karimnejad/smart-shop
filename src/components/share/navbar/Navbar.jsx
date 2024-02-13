@@ -1,5 +1,3 @@
-"use client";
-
 import { Redressed } from "next/font/google";
 import Link from "next/link";
 import Container from "../../ui/Container";
@@ -11,7 +9,7 @@ const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 
 async function Navbar() {
   const currentUser = await getCurrentUser();
-  console.log("😎user=>>>", currentUser);
+  console.log("👻 user=>>>", currentUser);
 
   return (
     <>
@@ -25,7 +23,7 @@ async function Navbar() {
               E-Shop
             </Link>
             <NavSearch />
-            <UserNav />
+            <UserNav currentUser={currentUser} />
           </div>
         </Container>
       </div>
