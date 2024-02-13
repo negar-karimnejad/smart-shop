@@ -1,9 +1,7 @@
-import SigninForm from '../../../components/share/SigninForm'
+import SigninForm from "../components/SigninForm";
 
 function Signin() {
-  return (
-    <SigninForm/>
-  )
+  return <SigninForm />;
 }
 
-export default Signin
+export default Signin;

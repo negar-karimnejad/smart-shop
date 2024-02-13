@@ -4,7 +4,8 @@ import Navbar from "../components/share/navbar/Navbar";
 import HotToastContext from "../../context/HotToastContext";
 import CartProvider from "../../providers/cartProvider";
 import "./globals.css";
-import AuthProvider from "../../providers/AuthProvider";
+// import AuthProvider from "../../providers/AuthProvider";
+import { getCurrentUser } from "../../providers/getCurrentUser";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,20 +17,23 @@ export const metadata = {
   description: "Ecommerce App",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const currentUser = await getCurrentUser();
+  console.log(currentUser);
+  
   return (
     <html lang="en">
       <body className={`${poppins.className} text-slate-700`}>
-        <AuthProvider>
-          <HotToastContext />
-          <CartProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow">{children}</main>
-              <Footer />
-            </div>
-          </CartProvider>
-        </AuthProvider>
+        {/* <AuthProvider> */}
+        <HotToastContext />
+        <CartProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+        </CartProvider>
+        {/* </AuthProvider> */}
       </body>
     </html>
   );
