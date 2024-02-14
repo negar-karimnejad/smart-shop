@@ -12,10 +12,22 @@ export default function Home() {
   const params = useSearchParams();
 
   const currentQuery = params ? queryString.parse(params.toString()) : {};
+  let filteredProducts = [];
 
-  const filteredProducts = currentQuery.category
-    ? products.filter((product) => product.category === currentQuery.category)
-    : products;
+  if (currentQuery.category) {
+    filteredProducts = currentQuery.category
+      ? products.filter((product) => product.category === currentQuery.category)
+      : products;
+  } else {
+    filteredProducts = currentQuery.searchTerm
+      ? products.filter((product) =>
+          product.name
+            .toLocaleLowerCase()
+            .includes(currentQuery.searchTerm.toLocaleLowerCase())
+        )
+      : products;
+  }
+  console.log(currentQuery);
 
   return (
     <>
@@ -29,7 +41,7 @@ export default function Home() {
             ))}
         </div>
 
-        {filteredProducts.length && (
+        {!filteredProducts.length && (
           <p className="text-center pt-10 w-full text-2xl whitespace-nowrap m-auto">
             Oops! No products found. Click &apos;All&apos; to clear filters.
           </p>
