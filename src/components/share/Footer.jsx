@@ -1,4 +1,4 @@
-import { categories, customerServices } from "../../data";
+import { categories, customerServices } from "../../utilities/data";
 import Link from "next/link";
 import {
   AiFillInstagram,

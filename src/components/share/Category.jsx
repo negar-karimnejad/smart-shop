@@ -1,22 +1,49 @@
 "use client";
+import { useSearchParams } from "next/dist/client/components/navigation";
+import { useRouter } from "next/navigation";
+import queryString from "query-string";
+import { useCallback } from "react";
 
-import { useState } from "react";
+function Category({ title, icon, selected }) {
+  const router = useRouter();
+  const params = useSearchParams();
 
-function Category({ category }) {
-  const [isActive, setIsActive] = useState("All");
+  const handleClick = useCallback(() => {
+    if (title === "All") {
+      router.push("/");
+    } else {
+      let currentQuery = {};
+
+      if (params) {
+        currentQuery = queryString.parse(params.toString());
+      }
+
+      const updatesQuery = {
+        ...currentQuery,
+        category: title,
+      };
+
+      const url = queryString.stringifyUrl(
+        {
+          url: "/",
+          query: updatesQuery,
+        },
+        { skipNull: true }
+      );
+      router.push(url);
+    }
+  }, [params, router, title]);
 
   return (
-    <li
-      onClick={() => setIsActive(category.title)}
+    <div
+      onClick={handleClick}
       className={`${
-        isActive === category.title
-          ? "opacity-100 border-b-2 border-gray-800"
-          : "opacity-60"
-      } flex items-center gap-1 hover:opacity-100 cursor-pointer py-2`}
+        selected ? "opacity-100 border-b-2 border-gray-800" : "opacity-60"
+      } flex items-center gap-1 text-sm hover:opacity-100 cursor-pointer py-2`}
     >
-      <span>{category.icon}</span>
-      <span>{category.title}</span>
-    </li>
+      <span>{icon}</span>
+      <span>{title}</span>
+    </div>
   );
 }
 
