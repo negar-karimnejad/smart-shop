@@ -2,9 +2,9 @@
 
 import { useSearchParams } from "next/dist/client/components/navigation";
 import { usePathname } from "next/navigation";
+import { categories } from "../../utilities/data";
 import Container from "../ui/Container";
 import Category from "./Category";
-import { categories } from "../../utilities/data";
 
 function Categories() {
   const params = useSearchParams();

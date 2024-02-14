@@ -1,41 +1,29 @@
 "use client";
-import { useCallback, useState } from "react";
-import { useSearchParams } from "next/dist/client/components/navigation";
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
+import { useCallback, useState } from "react";
 
 function NavSearch() {
   const [search, setSearch] = useState("");
   const router = useRouter();
-  const params = useSearchParams();
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      setSearch("");
-      if (!search) return router.push("/");
-      let currentQuery = {};
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    setSearch("");
 
-      if (params) {
-        currentQuery = queryString.parse(params.toString());
-      }
+    if (!search) return router.push("/");
 
-      const updatesQuery = {
-        ...currentQuery,
-        searchTerm: search,
-      };
-
-      const url = queryString.stringifyUrl(
-        {
-          url: "/",
-          query: updatesQuery,
+    const url = queryString.stringifyUrl(
+      {
+        url: "/",
+        query: {
+          searchTerm: search,
         },
-        { skipNull: true }
-      );
-      router.push(url);
-    },
-    [params, router, search]
-  );
+      },
+      { skipNull: true }
+    );
+    router.push(url);
+  });
 
   return (
     // hidden md:flex

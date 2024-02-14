@@ -12,21 +12,12 @@ function Category({ title, icon, selected }) {
     if (title === "All") {
       router.push("/");
     } else {
-      let currentQuery = {};
-
-      if (params) {
-        currentQuery = queryString.parse(params.toString());
-      }
-
-      const updatesQuery = {
-        ...currentQuery,
-        category: title,
-      };
-
       const url = queryString.stringifyUrl(
         {
           url: "/",
-          query: updatesQuery,
+          query: {
+            category: title,
+          },
         },
         { skipNull: true }
       );
