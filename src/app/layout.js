@@ -1,6 +1,6 @@
 import { Poppins } from "next/font/google";
 import HotToastContext from "../../context/HotToastContext";
-import AuthProvider from "../../providers/AuthProvider";
+import SessionProvider from "./SessionProvider";
 import CartProvider from "../../providers/cartProvider";
 import Footer from "../components/share/Footer";
 import Navbar from "../components/share/navbar/Navbar";
@@ -17,11 +17,10 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
   return (
     <html lang="en">
       <body className={`${poppins.className} text-slate-700`}>
-        <AuthProvider>
+        <SessionProvider>
           <HotToastContext />
           <CartProvider>
             <div className="flex flex-col min-h-screen">
@@ -30,7 +29,7 @@ export default async function RootLayout({ children }) {
               <Footer />
             </div>
           </CartProvider>
-        </AuthProvider>
+        </SessionProvider>
       </body>
     </html>
   );
